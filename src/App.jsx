@@ -31,12 +31,30 @@ function App() {
   const columnHelper = createColumnHelper();
 
   const columns = [
-    columnHelper.accessor("id"),
-    columnHelper.accessor("company_name"),
-    columnHelper.accessor("address"),
-    columnHelper.accessor("stars"),
-    columnHelper.accessor("region"),
-    columnHelper.accessor("area"),
+    columnHelper.accessor("id", {
+      header: "Hotel ID",
+    }),
+    columnHelper.accessor("company_name", {
+      header: "Hotel Name",
+    }),
+    columnHelper.accessor("address", {
+      header: "Address",
+    }),
+    columnHelper.accessor("stars", {
+      header: "Stars",
+    }),
+    columnHelper.accessor("region", {
+      header: "Region",
+    }),
+    columnHelper.accessor("area", {
+      header: "Area",
+    }),
+    // columnHelper.accessor("id"),
+    // columnHelper.accessor("company_name"),
+    // columnHelper.accessor("address"),
+    // columnHelper.accessor("stars"),
+    // columnHelper.accessor("region"),
+    // columnHelper.accessor("area"),
   ];
 
   const table = useReactTable({
@@ -57,6 +75,22 @@ function App() {
     <div>
       <h1>table feat query</h1>
       <table>
+        <thead>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map((header) => (
+                <th key={header.id}>
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                </th>
+              ))}
+            </tr>
+          ))}
+        </thead>
         <tbody>
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id}>
