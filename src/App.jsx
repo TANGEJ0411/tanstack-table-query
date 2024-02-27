@@ -31,30 +31,36 @@ function App() {
   const columnHelper = createColumnHelper();
 
   const columns = [
-    columnHelper.accessor("id", {
-      header: "Hotel ID",
+    columnHelper.accessor((row) => row.id, {
+      id: "id",
+      cell: (info) => <i>{info.getValue()}</i>,
+      header: () => <span className="my-h3">飯店id</span>,
     }),
-    columnHelper.accessor("company_name", {
-      header: "Hotel Name",
+    columnHelper.accessor((row) => row.company_name, {
+      id: "company_name",
+      cell: (info) => <i>{info.getValue()}</i>,
+      header: () => <span className="my-h3">飯店名稱</span>,
     }),
-    columnHelper.accessor("address", {
-      header: "Address",
+    columnHelper.accessor((row) => row.address, {
+      id: "address",
+      cell: (info) => <i>{info.getValue()}</i>,
+      header: () => <span className="my-h3">飯店地址</span>,
     }),
-    columnHelper.accessor("stars", {
-      header: "Stars",
+    columnHelper.accessor((row) => row.stars, {
+      id: "stars",
+      cell: (info) => <i>{info.getValue()}</i>,
+      header: () => <span className="my-h3">飯店星星</span>,
     }),
-    columnHelper.accessor("region", {
-      header: "Region",
+    columnHelper.accessor((row) => row.region, {
+      id: "region",
+      cell: (info) => <i>{info.getValue()}</i>,
+      header: () => <span className="my-h3">飯店位置</span>,
     }),
-    columnHelper.accessor("area", {
-      header: "Area",
+    columnHelper.accessor((row) => row.area, {
+      id: "area",
+      cell: (info) => <i>{info.getValue()}</i>,
+      header: () => <span className="my-h3">飯店地區</span>,
     }),
-    // columnHelper.accessor("id"),
-    // columnHelper.accessor("company_name"),
-    // columnHelper.accessor("address"),
-    // columnHelper.accessor("stars"),
-    // columnHelper.accessor("region"),
-    // columnHelper.accessor("area"),
   ];
 
   const table = useReactTable({
@@ -93,9 +99,19 @@ function App() {
         </thead>
         <tbody>
           {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
+            <tr
+              key={row.id}
+              className={`${
+                row.index % 2 === 0 ? "bg-secondary-3" : "bg-secondary-5"
+              }`}
+            >
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
+                <td
+                  key={cell.id}
+                  className={`my-t3 my-py-1 border border-secondary-1 ${
+                    cell.column.id === "id" ? "my-primary-1 my-h3" : ""
+                  }`}
+                >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
